@@ -36,6 +36,7 @@
             <h3>{{ article.title}}</h3>
             <p>{{ article.body }}</p>
             <hr>
+            <button @click="editArticle(article)" class="btn btn-warning mb-2">Edit</button>
             <button @click="deleteArticle(article.id)" class="btn btn-danger">Delete</button>
         </div>
     </div>
@@ -129,6 +130,13 @@ export default {
                 })
                 .catch(err => console.log(err));
             }
+        },
+        editArticle(article) {
+            this.edit = true;
+            this.article.id = article.id;
+            this.article.article_id = article.id;
+            this.article.title = article.title;
+            this.article.body = article.body;
         },
         clearForm() {
             this.edit = false;
