@@ -63,13 +63,14 @@ export default {
 
     methods:{
         fetchArticles(page_url){
+            console.log(localStorage.getItem('access_token'));
             let vm = this;
             page_url = page_url || '/api/articles'
-            fetch(page_url)
+            axios.get(page_url)
             .then(res => res.json())
             .then(res => {
                 this.articles=res.data;
-                vm.makePagination(res.meta, res.links);
+                vm.makePagination(res.meta, res.links);                
             })
             .catch(err => console.log(err));
         },
