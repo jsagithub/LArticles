@@ -47829,11 +47829,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
             var _this2 = this;
 
             if (confirm('Are you sure?')) {
-                fetch('api/article/' + id, {
-                    method: 'delete'
-                }).then(function (res) {
-                    return res.json();
-                }).then(function (data) {
+                axios.delete('api/article/' + id).then(function (data) {
                     alert('Article Removed');
                     _this2.fetchArticles();
                 }).catch(function (err) {
@@ -47846,15 +47842,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
             if (this.edit === false) {
                 // Add
-                fetch('api/article', {
-                    method: 'post',
-                    body: JSON.stringify(this.article),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                }).then(function (res) {
-                    return res.json();
-                }).then(function (data) {
+                axios.post('api/article', this.article).then(function (data) {
                     _this3.clearForm();
                     alert('Article Added');
                     _this3.fetchArticles();
@@ -47863,15 +47851,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
                 });
             } else {
                 // Update
-                fetch('api/article', {
-                    method: 'put',
-                    body: JSON.stringify(this.article),
-                    headers: {
-                        'content-type': 'application/json'
-                    }
-                }).then(function (res) {
-                    return res.json();
-                }).then(function (data) {
+                axios.put('api/article', this.article).then(function (data) {
                     _this3.clearForm();
                     alert('Article Updated');
                     _this3.fetchArticles();

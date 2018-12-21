@@ -66,7 +66,7 @@ export default {
             let vm = this;
             page_url = page_url || '/api/articles'
             axios.get(page_url)
-            .then(res => {
+            .then(res => {                
                 this.articles=res.data.data;
                 vm.makePagination(res.data.meta, res.data.links);                
             })
@@ -84,10 +84,7 @@ export default {
         },
         deleteArticle(id){
             if(confirm('Are you sure?')){
-                fetch(`api/article/${id}`,{
-                    method: 'delete'
-                })
-                .then(res => res.json() )
+                axios.delete(`api/article/${id}`)
                 .then(data =>{
                     alert('Article Removed');
                     this.fetchArticles();
@@ -98,14 +95,7 @@ export default {
         addArticle() {
             if (this.edit === false) {
                 // Add
-                fetch('api/article', {
-                method: 'post',
-                body: JSON.stringify(this.article),
-                headers: {
-                    'content-type': 'application/json'
-                }
-                })
-                .then(res => res.json())
+                axios.post('api/article', this.article)
                 .then(data => {
                     this.clearForm();
                     alert('Article Added');
@@ -114,14 +104,7 @@ export default {
                 .catch(err => console.log(err));
             } else {
                 // Update
-                fetch('api/article', {
-                method: 'put',
-                body: JSON.stringify(this.article),
-                headers: {
-                    'content-type': 'application/json'
-                }
-                })
-                .then(res => res.json())
+                axios.put('api/article', this.article)
                 .then(data => {
                     this.clearForm();
                     alert('Article Updated');
