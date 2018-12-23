@@ -47662,16 +47662,28 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+    data: function data() {
+        return {
+            have_user: false
+        };
+    },
     mounted: function mounted() {
         this.getTokens();
     },
 
     methods: {
         getTokens: function getTokens() {
+            var _this = this;
+
             axios.get('/oauth/clients').then(function (response) {
-                console.log(response.data);
+                if (response.data[0]) {
+                    _this.have_user = true;
+                } else {
+                    _this.have_user = false;
+                }
             });
         }
     }
@@ -47685,26 +47697,27 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _vm._m(0)
+  return _c(
+    "nav",
+    { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
+    [
+      _c("div", { staticClass: "container" }, [
+        _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
+          _vm._v("Larticles")
+        ]),
+        _vm._v(" "),
+        !_vm.have_user
+          ? _c(
+              "a",
+              { staticClass: "navbar-brand", attrs: { href: "/login" } },
+              [_vm._v("Login")]
+            )
+          : _vm._e()
+      ])
+    ]
+  )
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c(
-      "nav",
-      { staticClass: "navbar navbar-expand-sm navbar-dark bg-info mb-2" },
-      [
-        _c("div", { staticClass: "container" }, [
-          _c("a", { staticClass: "navbar-brand", attrs: { href: "#" } }, [
-            _vm._v("Larticles")
-          ])
-        ])
-      ]
-    )
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 module.exports = { render: render, staticRenderFns: staticRenderFns }
 if (false) {
