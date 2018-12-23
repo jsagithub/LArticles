@@ -5,3 +5,18 @@
         </div>
     </nav>
 </template>
+<script>
+export default {
+    mounted() {
+        this.getTokens();
+    },
+    methods: {
+        getTokens() {
+            axios.get('/oauth/clients')
+                    .then(response => {
+                        console.log(response.data);
+                    });
+        },
+    }
+}
+</script>
