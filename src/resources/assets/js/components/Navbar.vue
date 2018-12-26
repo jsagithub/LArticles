@@ -27,7 +27,6 @@ export default {
                 this.haveLogin = false;
                 console.log(err);
             });
-            console.log();
     }
 }
 </script>
