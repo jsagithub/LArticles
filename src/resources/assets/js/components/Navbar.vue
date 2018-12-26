@@ -2,8 +2,8 @@
     <nav class="navbar navbar-expand-sm navbar-dark bg-info mb-2">
         <div class="container">
             <a href="#" class="navbar-brand">Larticles</a>
-            <a v-if="!userInfo" href="/login" class="navbar-brand">Login</a>
-            <a v-if="userInfo" class="navbar-brand">{{userInfo['name']}}</a>
+            <a v-if="!haveLogin" href="/login" class="navbar-brand">Login</a>
+            <a v-if="haveLogin" class="navbar-brand">{{userInfo['name']}}</a>
         </div>
     </nav>
 </template>
@@ -11,15 +11,23 @@
 export default {
     data () {
         return {
-            userInfo: {}
+            userInfo: {},
+            haveLogin: false
         }
     },
     created() {
             axios.get('/api/user')
             .then(res => {          
-                this.userInfo = res.data;      
+                if(res){
+                    this.userInfo = res.data;  
+                    this.haveLogin = true;    
+                }
             })
-            .catch(err => console.log(err));
+            .catch(err => {
+                this.haveLogin = false;
+                console.log(err);
+            });
+            console.log();
     }
 }
 </script>

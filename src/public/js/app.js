@@ -47668,17 +47668,23 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
-            userInfo: {}
+            userInfo: {},
+            haveLogin: false
         };
     },
     created: function created() {
         var _this = this;
 
         axios.get('/api/user').then(function (res) {
-            _this.userInfo = res.data;
+            if (res) {
+                _this.userInfo = res.data;
+                _this.haveLogin = true;
+            }
         }).catch(function (err) {
-            return console.log(err);
+            _this.haveLogin = false;
+            console.log(err);
         });
+        console.log();
     }
 });
 
@@ -47699,7 +47705,7 @@ var render = function() {
           _vm._v("Larticles")
         ]),
         _vm._v(" "),
-        !_vm.userInfo
+        !_vm.haveLogin
           ? _c(
               "a",
               { staticClass: "navbar-brand", attrs: { href: "/login" } },
@@ -47707,7 +47713,7 @@ var render = function() {
             )
           : _vm._e(),
         _vm._v(" "),
-        _vm.userInfo
+        _vm.haveLogin
           ? _c("a", { staticClass: "navbar-brand" }, [
               _vm._v(_vm._s(_vm.userInfo["name"]))
             ])
